@@ -1,3 +1,8 @@
+// Engine warmp up
+// Windows roll
+// Detects controller position?
+// locate car
+
 #include <SoftwareSerial.h>
 
 SoftwareSerial HM10(0, 1); // rx = 0 tx = 1
@@ -39,6 +44,10 @@ void setup()
   pinMode(R2, OUTPUT); // relay 2
   pinMode(R3, OUTPUT); // relay 3
   pinMode(R4, OUTPUT); // relay 4
+  pinMode(R5, OUTPUT); // relay 5
+  pinMode(R6, OUTPUT); // relay 6
+  pinMode(R7, OUTPUT); // relay 7
+  pinMode(R8, OUTPUT); // relay 8
 
   // default pin values
   digitalWrite(LED, LOW); // switch OFF LED
@@ -47,6 +56,10 @@ void setup()
   digitalWrite(R2, HIGH); // switch OFF relay 2
   digitalWrite(R3, HIGH); // switch OFF relay 3
   digitalWrite(R4, HIGH); // switch OFF relay 4
+  digitalWrite(R5, HIGH); // switch OFF relay 5
+  digitalWrite(R6, HIGH); // switch OFF relay 6
+  digitalWrite(R7, HIGH); // switch OFF relay 7
+  digitalWrite(R8, HIGH); // switch OFF relay 8
 }
 
 void loop()
