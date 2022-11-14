@@ -27,8 +27,16 @@ void resetCommand(){
 
 // toggles relay state
 void toggle(int pin, String message){
-  Serial.println(message);
+  Serial.println(" " + message);
   digitalWrite(pin, !digitalRead(pin));
+  resetCommand();
+}
+
+void starter(int time){
+  Serial.println(" Ignition start");
+  digitalWrite(R1, LOW);
+  delay(time);
+  digitalWrite(R1, HIGH);
   resetCommand();
 }
 
@@ -81,11 +89,11 @@ void loop()
 
   // set a relays
   if (command == "A") {
-    toggle(R1, "Relay 1");
+    starter(1000);
   }
 
   if (command == "B") {
-    toggle(R2, "Relay 2");
+    starter(1500);
   }
 
   if (command == "C") {
