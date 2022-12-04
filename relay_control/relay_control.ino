@@ -1,8 +1,3 @@
-// Engine warmp up
-// Windows roll
-// Detects controller position?
-// locate car
-
 #include <SoftwareSerial.h>
 
 SoftwareSerial HM10(0, 1); // rx = 0 tx = 1
@@ -32,12 +27,82 @@ void toggle(int pin, String message){
   resetCommand();
 }
 
-void starter(int time){
-  Serial.println(" Ignition start");
-  digitalWrite(R1, LOW);
-  delay(time);
-  digitalWrite(R1, HIGH);
+void starter(){
   resetCommand();
+  Serial.println(" Ignition start");
+  digitalWrite(R2, LOW);
+  delay(900);
+  digitalWrite(R2, HIGH);
+  delay(15000);
+  digitalWrite(R1, HIGH);
+}
+
+void locate(){
+  resetCommand();
+  Serial.println(" Locate start");
+
+  digitalWrite(R3, LOW);
+  digitalWrite(R4, LOW);
+  delay(500);
+  digitalWrite(R3, HIGH);
+  digitalWrite(R4, HIGH);
+  delay(500);
+
+  digitalWrite(R3, LOW);
+  digitalWrite(R4, LOW);
+  delay(500);
+  digitalWrite(R3, HIGH);
+  digitalWrite(R4, HIGH);
+  delay(500);
+
+  digitalWrite(R3, LOW);
+  digitalWrite(R4, LOW);
+  delay(500);
+  digitalWrite(R3, HIGH);
+  digitalWrite(R4, HIGH);
+  delay(500);
+
+  digitalWrite(R3, LOW);
+  digitalWrite(R4, LOW);
+  delay(500);
+  digitalWrite(R3, HIGH);
+  digitalWrite(R4, HIGH);
+}
+
+void windowRollDown(){
+  resetCommand();
+  digitalWrite(R6, HIGH);
+  toggle(R5, "Windows rolling down");
+}
+
+void windowRollUp(){
+  resetCommand();
+  digitalWrite(R5, HIGH);
+  toggle(R6, "Windows rolling up");
+}
+
+void lockDoors(){
+  resetCommand();
+  digitalWrite(R3, LOW);
+  digitalWrite(R7, LOW);
+  delay(200);
+  digitalWrite(R7, HIGH);
+  delay(300);
+  digitalWrite(R3, HIGH);
+}
+
+void unlockDoors(){
+  resetCommand();
+  digitalWrite(R3, LOW);
+  digitalWrite(R8, LOW);
+  delay(200);
+  digitalWrite(R8, HIGH);
+  delay(300);
+  digitalWrite(R3, HIGH);
+  delay(500);
+  digitalWrite(R3, LOW);
+  delay(500);
+  digitalWrite(R3, HIGH);
 }
 
 void setup()
@@ -89,35 +154,31 @@ void loop()
 
   // set a relays
   if (command == "A") {
-    starter(1000);
+    toggle(R1, "Relay 1");
   }
 
   if (command == "B") {
-    starter(1500);
+    starter();
   }
 
   if (command == "C") {
-    toggle(R3, "Relay 3");
+    locate();
   }
 
   if (command == "D") {
-    toggle(R4, "Relay 4");
+    windowRollDown();
   }
 
   // set b relays
   if (command == "E") {
-    toggle(R5, "Relay 5");
+    windowRollUp();
   }
 
   if (command == "F") {
-    toggle(R6, "Relay 6");
+    lockDoors();
   }
 
   if (command == "G") {
-    toggle(R7, "Relay 7");
-  }
-
-  if (command == "H") {
-    toggle(R8, "Relay 8");
+    unlockDoors();
   }
 }
